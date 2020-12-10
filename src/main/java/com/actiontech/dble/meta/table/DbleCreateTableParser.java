@@ -301,7 +301,9 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 } else {
                     expr = this.exprParser.expr();
                 }
-                stmt.getTableOptions().put("ENGINE", expr);
+                // todo ylz not sure
+                // stmt.getTableOptions().put("ENGINE", expr);
+                stmt.getTableOptions().add(new SQLAssignItem(expr, expr));
                 continue;
             }
 
@@ -320,7 +322,7 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("AVG_ROW_LENGTH", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
                 continue;
             }
 
@@ -339,7 +341,7 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("CHECKSUM", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
                 continue;
             }
 
@@ -357,7 +359,8 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("CONNECTION", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
+
                 continue;
             }
 
@@ -367,7 +370,9 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("DATA DIRECTORY", this.exprParser.expr());
+                // stmt.getTableOptions().put("DATA DIRECTORY", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
+
                 continue;
             }
 
@@ -376,7 +381,9 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("DELAY_KEY_WRITE", this.exprParser.expr());
+                // stmt.getTableOptions().put("DELAY_KEY_WRITE", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
+
                 continue;
             }
 
@@ -386,7 +393,9 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("INDEX DIRECTORY", this.exprParser.expr());
+                // stmt.getTableOptions().put("INDEX DIRECTORY", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
+
                 continue;
             }
 
@@ -395,7 +404,9 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("INSERT_METHOD", this.exprParser.expr());
+                // stmt.getTableOptions().put("INSERT_METHOD", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
+
                 continue;
             }
 
@@ -404,7 +415,9 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("KEY_BLOCK_SIZE", this.exprParser.expr());
+                //  stmt.getTableOptions().put("KEY_BLOCK_SIZE", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
+
                 continue;
             }
 
@@ -413,7 +426,9 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("MAX_ROWS", this.exprParser.expr());
+                // stmt.getTableOptions().put("MAX_ROWS", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
+
                 continue;
             }
 
@@ -422,7 +437,9 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("MIN_ROWS", this.exprParser.expr());
+                // stmt.getTableOptions().put("MIN_ROWS", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
+
                 continue;
             }
 
@@ -431,7 +448,9 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("PACK_KEYS", this.exprParser.expr());
+                //   stmt.getTableOptions().put("PACK_KEYS", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
+
                 continue;
             }
 
@@ -440,7 +459,8 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("PASSWORD", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
+
                 continue;
             }
 
@@ -449,7 +469,8 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("ROW_FORMAT", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
+
                 continue;
             }
 
@@ -458,8 +479,8 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
 
-                stmt.getTableOptions().put("STATS_AUTO_RECALC", this.exprParser.expr());
                 continue;
             }
 
@@ -468,8 +489,8 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
 
-                stmt.getTableOptions().put("STATS_PERSISTENT", this.exprParser.expr());
                 continue;
             }
 
@@ -478,8 +499,8 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
 
-                stmt.getTableOptions().put("STATS_SAMPLE_PAGES", this.exprParser.expr());
                 continue;
             }
 
@@ -491,7 +512,7 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
 
                 accept(Token.LPAREN);
                 SQLTableSource tableSrc = this.createSQLSelectParser().parseTableSource();
-                stmt.getTableOptions().put("UNION", tableSrc);
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
                 accept(Token.RPAREN);
                 continue;
             }
@@ -506,8 +527,8 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                     lexer.nextToken();
                     option.setStorage(this.exprParser.name());
                 }
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
 
-                stmt.getTableOptions().put("TABLESPACE", option);
                 continue;
             }
 
@@ -522,7 +543,9 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
             if (lexer.identifierEquals("TYPE")) {
                 lexer.nextToken();
                 accept(Token.EQ);
-                stmt.getTableOptions().put("TYPE", this.exprParser.expr());
+                //   stmt.getTableOptions().put("TYPE", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
+
                 continue;
             }
 
@@ -531,7 +554,8 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("ENCRYPTION", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
+
                 continue;
             }
 
@@ -540,33 +564,35 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
                 if (lexer.token() == Token.EQ) {
                     lexer.nextToken();
                 }
-                stmt.getTableOptions().put("COMPRESSION", this.exprParser.expr());
+                stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
                 continue;
             }
 
             if (lexer.token() == Token.PARTITION) {
                 SQLPartitionBy partitionClause = parsePartitionBy();
                 stmt.setPartitioning(partitionClause);
-
                 continue;
             }
 
             if (lexer.identifierEquals(FnvHash.Constants.DBPARTITION)) {
                 SQLPartitionBy partitionClause = parsePartitionBy();
-                stmt.setDbPartitionBy(partitionClause);
+                stmt.setDbPartitionBy(partitionClause.getPartitionsCount());
                 continue;
             }
 
             if (lexer.identifierEquals(FnvHash.Constants.TBPARTITION)) {
                 SQLPartitionBy partitionClause = parsePartitionBy();
-                stmt.setTablePartitionBy(partitionClause);
+
+                stmt.setTablePartitionBy(partitionClause.getPartitionsCount());
+                stmt.setTablePartitionBy(partitionClause.getPartitionsCount());
                 continue;
             }
 
             if (lexer.identifierEquals(FnvHash.Constants.TBPARTITIONS)) {
                 lexer.nextToken();
                 SQLExpr tbpartitions = this.exprParser.expr();
-                stmt.setTbpartitions(tbpartitions);
+                // stmt.setTbpartitions(tbpartitions);
+                stmt.setTablePartitionBy(tbpartitions);
                 continue;
             }
 
@@ -592,7 +618,7 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
         return stmt;
     }
 
-    private SQLPartitionBy parsePartitionBy() {
+    public SQLPartitionBy parsePartitionBy() {
         lexer.nextToken();
         accept(Token.BY);
 
@@ -720,7 +746,8 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
             if (lexer.token() == Token.EQ) {
                 lexer.nextToken();
             }
-            stmt.getTableOptions().put("CHARACTER SET", this.exprParser.expr());
+            // stmt.getTableOptions().put("CHARACTER SET", this.exprParser.expr());
+            stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
             return true;
         }
 
@@ -729,7 +756,8 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
             if (lexer.token() == Token.EQ) {
                 lexer.nextToken();
             }
-            stmt.getTableOptions().put("CHARSET", this.exprParser.expr());
+            // stmt.getTableOptions().put("CHARSET", this.exprParser.expr());
+            stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
             return true;
         }
 
@@ -738,7 +766,8 @@ public class DbleCreateTableParser extends MySqlCreateTableParser {
             if (lexer.token() == Token.EQ) {
                 lexer.nextToken();
             }
-            stmt.getTableOptions().put("COLLATE", this.exprParser.expr());
+            //stmt.getTableOptions().put("COLLATE", this.exprParser.expr());
+            stmt.getTableOptions().add(new SQLAssignItem(this.exprParser.expr(), this.exprParser.expr()));
             return true;
         }
 

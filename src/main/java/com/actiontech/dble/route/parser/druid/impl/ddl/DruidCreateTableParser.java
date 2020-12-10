@@ -40,11 +40,10 @@ public class DruidCreateTableParser extends DefaultDruidParser {
             LOGGER.info(msg);
             throw new SQLNonTransientException(msg);
         }
-
         String schemaName = schema == null ? null : schema.getName();
         SchemaInfo schemaInfo = SchemaUtil.getSchemaInfo(service.getUser(), schemaName, createStmt.getTableSource());
         TableMeta tableMeta = ProxyMeta.getInstance().getTmManager().getSyncTableMeta(schemaInfo.getSchema(), schemaInfo.getTable());
-        if (tableMeta != null && !createStmt.isIfNotExiists()) {
+        if (tableMeta != null && !createStmt.isIfNotExists()) {
             String msg = "Table '" + schemaInfo.getSchema() + "." + schemaInfo.getTable() + "' or table meta already exists";
             throw new SQLException(msg, "42S01", ErrorCode.ER_TABLE_EXISTS_ERROR);
         }
@@ -80,7 +79,7 @@ public class DruidCreateTableParser extends DefaultDruidParser {
 
     private void sharingTableCheck(MySqlCreateTableStatement createStmt) throws SQLNonTransientException {
         //ALLOW InnoDB ONLY
-        SQLObject engine = createStmt.getTableOptions().get("ENGINE");
+        SQLObject engine = createStmt.getTableOptions().get(0);
         if (engine != null) {
             String strEngine;
             if (engine instanceof SQLCharExpr) {
@@ -98,7 +97,7 @@ public class DruidCreateTableParser extends DefaultDruidParser {
         }
 
         //DISABLE DATA DIRECTORY
-        if (createStmt.getTableOptions().get("DATA DIRECTORY") != null) {
+        if (createStmt.getTableOptions().get(0) != null) {
             String msg = "create table with DATA DIRECTORY  not supported:" + createStmt;
             LOGGER.info(msg);
             throw new SQLNonTransientException(msg);

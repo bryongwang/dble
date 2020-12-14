@@ -27,7 +27,7 @@
     </schema>
 
     <schema name="schema2" sqlMaxLimit="100">
-        <singleTable name="single_t2" shardingNode="dn2" />
+        <singleTable name="single_t3" shardingNode="dn1" />
     </schema>
     <shardingNode name="dn1" dbGroup="ha_group2" database="db_1"/>
     <shardingNode name="dn2" dbGroup="ha_group2" database="db_3"/>

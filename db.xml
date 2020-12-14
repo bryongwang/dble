@@ -1,0 +1,7 @@
+<!DOCTYPE dble:db SYSTEM "db.dtd">
+<dble:db xmlns:dble="http://dble.cloud/">
+    <dbGroup rwSplitMode="1" name="ha_group2" delayThreshold="100">
+        <heartbeat>show slave status</heartbeat>
+        <dbInstance name="hostM2" url="10.186.65.48:3309" password="123456" user="root" maxCon="1000" minCon="10" primary="true"/>
+    </dbGroup>
+</dble:db>

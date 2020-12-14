@@ -13,15 +13,12 @@ import com.actiontech.dble.route.RouteResultset;
 import com.actiontech.dble.route.parser.druid.ServerSchemaStatVisitor;
 import com.actiontech.dble.route.parser.druid.impl.DefaultDruidParser;
 import com.actiontech.dble.route.util.RouterUtil;
-
 import com.actiontech.dble.server.util.SchemaUtil;
 import com.actiontech.dble.server.util.SchemaUtil.SchemaInfo;
 import com.actiontech.dble.services.mysqlsharding.ShardingService;
 import com.actiontech.dble.singleton.ProxyMeta;
-import com.alibaba.druid.sql.ast.SQLObject;
 import com.alibaba.druid.sql.ast.SQLStatement;
-import com.alibaba.druid.sql.ast.expr.SQLCharExpr;
-import com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
+import com.alibaba.druid.sql.ast.statement.SQLAssignItem;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlCreateTableStatement;
 
 import java.sql.SQLException;
@@ -79,28 +76,14 @@ public class DruidCreateTableParser extends DefaultDruidParser {
 
     private void sharingTableCheck(MySqlCreateTableStatement createStmt) throws SQLNonTransientException {
         //ALLOW InnoDB ONLY
-        SQLObject engine = createStmt.getTableOptions().get(0);
-        if (engine != null) {
-            String strEngine;
-            if (engine instanceof SQLCharExpr) {
-                strEngine = ((SQLCharExpr) engine).getText();
-            } else if (engine instanceof SQLIdentifierExpr) {
-                strEngine = ((SQLIdentifierExpr) engine).getSimpleName();
-            } else {
-                strEngine = engine.toString();
-            }
-            if (!"InnoDB".equalsIgnoreCase(strEngine)) {
-                String msg = "create table only can use ENGINE InnoDB,others not supported:" + createStmt;
-                LOGGER.info(msg);
-                throw new SQLNonTransientException(msg);
-            }
-        }
-
-        //DISABLE DATA DIRECTORY
-        if (createStmt.getTableOptions().get(0) != null) {
-            String msg = "create table with DATA DIRECTORY  not supported:" + createStmt;
+        if (createStmt.getTableOptions().size() == 0) return;
+        SQLAssignItem sqlAssignItem = createStmt.getTableOptions().get(0);
+        String sqlAssignItemValue = sqlAssignItem.getValue().toString();
+        if (!"InnoDB".equalsIgnoreCase(sqlAssignItemValue)) {
+            String msg = "create table only can use ENGINE InnoDB,others not supported:" + createStmt;
             LOGGER.info(msg);
             throw new SQLNonTransientException(msg);
         }
     }
+
 }

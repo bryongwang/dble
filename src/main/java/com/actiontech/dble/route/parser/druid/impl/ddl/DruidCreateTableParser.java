@@ -17,7 +17,11 @@ import com.actiontech.dble.server.util.SchemaUtil;
 import com.actiontech.dble.server.util.SchemaUtil.SchemaInfo;
 import com.actiontech.dble.services.mysqlsharding.ShardingService;
 import com.actiontech.dble.singleton.ProxyMeta;
+import com.actiontech.dble.util.StringUtil;
+import com.alibaba.druid.sql.ast.SQLObject;
 import com.alibaba.druid.sql.ast.SQLStatement;
+import com.alibaba.druid.sql.ast.expr.SQLCharExpr;
+import com.alibaba.druid.sql.ast.expr.SQLIdentifierExpr;
 import com.alibaba.druid.sql.ast.statement.SQLAssignItem;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlCreateTableStatement;
 
@@ -74,15 +78,29 @@ public class DruidCreateTableParser extends DefaultDruidParser {
         return schemaInfo.getSchemaConfig();
     }
 
-    private void sharingTableCheck(MySqlCreateTableStatement createStmt) throws SQLNonTransientException {
-        //ALLOW InnoDB ONLY
-        if (createStmt.getTableOptions().size() == 0) return;
-        SQLAssignItem sqlAssignItem = createStmt.getTableOptions().get(0);
+    private void sharingTableCheckHelp(SQLAssignItem sqlAssignItem, MySqlCreateTableStatement createStmt) throws SQLNonTransientException {
+        String sqlAssignItemTarget = sqlAssignItem.getTarget().toString();
         String sqlAssignItemValue = sqlAssignItem.getValue().toString();
-        if (!"InnoDB".equalsIgnoreCase(sqlAssignItemValue)) {
+        //ALLOW InnoDB ONLY
+        if (StringUtil.equals("ENGINE", sqlAssignItemTarget) && !"InnoDB".equalsIgnoreCase(sqlAssignItemValue)) {
             String msg = "create table only can use ENGINE InnoDB,others not supported:" + createStmt;
             LOGGER.info(msg);
             throw new SQLNonTransientException(msg);
+        }
+        //DISABLE DATA DIRECTORY
+        if (StringUtil.equals("DATA DIRECTORY", sqlAssignItemTarget)) {
+            String msg = "create table with DATA DIRECTORY  not supported:" + createStmt;
+            LOGGER.info(msg);
+            throw new SQLNonTransientException(msg);
+        }
+
+
+    }
+
+    private void sharingTableCheck(MySqlCreateTableStatement createStmt) throws SQLNonTransientException {
+        if (createStmt.getTableOptions().size() == 0) return;
+        for (SQLAssignItem sqlAssignItem : createStmt.getTableOptions()) {
+            sharingTableCheckHelp(sqlAssignItem, createStmt);
         }
     }
 

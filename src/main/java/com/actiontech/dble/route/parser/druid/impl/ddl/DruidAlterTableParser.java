@@ -80,7 +80,7 @@ public class DruidAlterTableParser extends DefaultDruidParser {
                 support = true;
             }
         }
-        if (!support) {
+        if (!support && alterTable.getItems().size() != 0) {
             msg = msg + stmt;
             throw new SQLNonTransientException(msg);
         }

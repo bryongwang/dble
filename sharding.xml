@@ -1,13 +1,13 @@
-﻿        <!--<?xml version='1.0' encoding='utf-8'?>-->
-        <!--<!DOCTYPE dble:sharding SYSTEM "sharding.dtd">-->
-        <!--<dble:sharding xmlns:dble="http://dble.cloud/">-->
-        <!--    <schema name="ha_group3"  sqlMaxLimit="100">-->
-        <!--<singleTable name="tb_enum_sharding" shardingNode="dn1" ></singleTable>-->
+<!--<?xml version='1.0' encoding='utf-8'?>-->
+<!--<!DOCTYPE dble:sharding SYSTEM "sharding.dtd">-->
+<!--<dble:sharding xmlns:dble="http://dble.cloud/">-->
+<!--    <schema name="ha_group3"  sqlMaxLimit="100">-->
+<!--<singleTable name="tb_enum_sharding" shardingNode="dn1" ></singleTable>-->
 
-        <!--    </schema>-->
-        <!--    <shardingNode name="dn1" dbGroup="ha_group3" database="db_1"/>-->
-        <!--</dble:sharding>-->
-        <!DOCTYPE dble:sharding SYSTEM "sharding.dtd">
+<!--    </schema>-->
+<!--    <shardingNode name="dn1" dbGroup="ha_group3" database="db_1"/>-->
+<!--</dble:sharding>-->
+<!DOCTYPE dble:sharding SYSTEM "sharding.dtd">
 <dble:sharding xmlns:dble="http://dble.cloud/">
 
     <schema name="testdb"  sqlMaxLimit="100">

@@ -57,10 +57,7 @@ public class DruidAlterTableParser extends DefaultDruidParser {
                 support = true;
                 rrs.setOnline(true);
             } else if (alterItem instanceof SQLAlterTableAddConstraint) {
-                SQLConstraint constraint = ((SQLAlterTableAddConstraint) alterItem).getConstraint();
-                if (constraint instanceof MySqlPrimaryKey) {
                     support = true;
-                }
             } else if (alterItem instanceof MySqlAlterTableChangeColumn ||
                     alterItem instanceof MySqlAlterTableModifyColumn ||
                     alterItem instanceof SQLAlterTableDropColumnItem) {

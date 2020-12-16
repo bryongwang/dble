@@ -13,14 +13,12 @@ import com.actiontech.dble.route.RouteResultset;
 import com.actiontech.dble.route.parser.druid.ServerSchemaStatVisitor;
 import com.actiontech.dble.route.parser.druid.impl.DefaultDruidParser;
 import com.actiontech.dble.route.util.RouterUtil;
-
 import com.actiontech.dble.server.util.SchemaUtil;
 import com.actiontech.dble.server.util.SchemaUtil.SchemaInfo;
 import com.actiontech.dble.services.mysqlsharding.ShardingService;
 import com.alibaba.druid.sql.ast.SQLName;
 import com.alibaba.druid.sql.ast.SQLStatement;
 import com.alibaba.druid.sql.ast.statement.*;
-import com.alibaba.druid.sql.dialect.mysql.ast.MySqlPrimaryKey;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlAlterTableAlterColumn;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlAlterTableChangeColumn;
 import com.alibaba.druid.sql.dialect.mysql.ast.statement.MySqlAlterTableModifyColumn;
@@ -57,7 +55,7 @@ public class DruidAlterTableParser extends DefaultDruidParser {
                 support = true;
                 rrs.setOnline(true);
             } else if (alterItem instanceof SQLAlterTableAddConstraint) {
-                    support = true;
+                support = true;
             } else if (alterItem instanceof MySqlAlterTableChangeColumn ||
                     alterItem instanceof MySqlAlterTableModifyColumn ||
                     alterItem instanceof SQLAlterTableDropColumnItem) {

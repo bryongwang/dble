@@ -860,12 +860,12 @@ public class ServerSchemaStatVisitor extends MySqlSchemaStatVisitor {
             }
             // remove alias
             String space = " ";
-            if(name.contains(space)) {
-                name = name.substring(0,name.indexOf(space));
+            if (name.contains(space)) {
+                name = name.substring(0, name.indexOf(space));
             }
 
-            if(value.contains(space)) {
-                value = value.substring(0,value.indexOf(space));
+            if (value.contains(space)) {
+                value = value.substring(0, value.indexOf(space));
             }
             aliasMap.put(name, value);
             tableTables.add(value);

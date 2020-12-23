@@ -684,7 +684,11 @@ public class MySQLItemVisitor extends MySqlASTVisitorAdapter {
             case "VARIANCE":
                 item = new ItemSumVariance(args, 0, false, null, this.charsetIndex);
                 break;
-
+            case "STD":
+            case "STDDEV":
+            case "STDDEV_POP":
+                item = new ItemSumStd(args, 0, false, null, this.charsetIndex);
+                break;
             case "IF":
                 item = new ItemFuncIf(args, this.charsetIndex);
                 break;

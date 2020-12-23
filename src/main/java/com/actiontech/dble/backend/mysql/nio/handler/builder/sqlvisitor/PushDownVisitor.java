@@ -286,12 +286,7 @@ public class PushDownVisitor extends MysqlVisitor {
     }
 
     private String replaceAll(String colName, String regex, String replacement) {
-        String res;
-        if (colName.contains(regex)) {
-            res = colName.replaceAll(regex, replacement);
-        } else {
-            res = colName.replaceAll(regex.toLowerCase(), replacement);
-        }
+        String res = colName.replaceAll(regex, replacement).replaceAll(regex.toLowerCase(), replacement);
         return res;
     }
 

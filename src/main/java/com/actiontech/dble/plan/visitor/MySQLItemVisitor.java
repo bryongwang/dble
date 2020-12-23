@@ -584,6 +584,12 @@ public class MySQLItemVisitor extends MySqlASTVisitorAdapter {
             case "BIT_XOR":
                 item = new ItemSumXor(args, false, null, this.charsetIndex);
                 break;
+            case "VAR_SAMP":
+                item = new ItemSumVariance(args, 1, false, null, this.charsetIndex);
+                break;
+            case "VARIANCE":
+                item = new ItemSumVariance(args, 0, false, null, this.charsetIndex);
+                break;
             default:
                 throw new MySQLOutPutException(ErrorCode.ER_OPTIMIZER, "", "not supported " + funcName);
         }
@@ -677,11 +683,8 @@ public class MySQLItemVisitor extends MySqlASTVisitorAdapter {
                 SQLIdentifierExpr diffUnit = (SQLIdentifierExpr) x.getParameters().get(0);
                 item = new ItemFuncTimestampDiff(args.get(1), args.get(2), SQLIntervalUnit.valueOf(diffUnit.getSimpleName().toUpperCase()), this.charsetIndex);
                 break;
-            case "VAR_SAMP":
-                item = new ItemSumVariance(args, 1, false, null, this.charsetIndex);
-                break;
+
             case "VAR_POP":
-            case "VARIANCE":
                 item = new ItemSumVariance(args, 0, false, null, this.charsetIndex);
                 break;
             case "STD":
